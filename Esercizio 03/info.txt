@@ -1,0 +1,2 @@
+1 - stimo S(T) alla fine e da qui mi riconduco ad avere C[S(T),T] e P
+2 - non stimo S come gaussiana ma step-by-step
