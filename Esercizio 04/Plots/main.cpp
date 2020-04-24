@@ -15,17 +15,20 @@ void read (vector<double>& r, string infile);
 
 int main (int argc, char *argv[]){
   // ----------------------------------------- Exercise 04.2 -----------------------------------------
-  int M, N, L = 2;
+  int M, N = 100, L;
   ifstream in("../MolecularDynamics_NVE/output_temp.dat");
+  //M = 10000;
   in >> M;
-  N = M/L;
+  L = M/N;
   in.close();
 
-  string fileroot = "31_out";
+  cout << "M = " << M << ", N = " << N << ", L = " << L << endl;
+  string fileroot = "out_gas";
   vector<double> r(M), ave(N), sum_prog(N), su2_prog(N), err_prog(N);
 
   // Temperatures
   read(r, "../MolecularDynamics_NVE/output_temp.dat");
+  //for (auto i = r.begin(); i != r.end(); ++i) cout << *i << endl;
   // Calculating averages and averages squared
   for (int i = 0; i<N; ++i) {
       double sum = 0;
@@ -48,6 +51,7 @@ int main (int argc, char *argv[]){
    }
   // Printing on "out1.txt"
   print(M, N, sum_prog, err_prog, fileroot+"_temp.txt");
+  //print(M, N, sum_prog, err_prog, "out_temp.txt");
 
 
 

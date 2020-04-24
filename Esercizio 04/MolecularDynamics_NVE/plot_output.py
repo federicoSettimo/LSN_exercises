@@ -4,7 +4,8 @@ import numpy as np
 
 
 filein = open("output_temp.dat")
-N = int(int(filein.readline())/10)
+#N = int(int(filein.readline())/10)
+N = 1000
 y = np.zeros(N)
 x = np.arange(N)
 for i in range(N):

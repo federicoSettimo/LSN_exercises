@@ -52,7 +52,7 @@ int main(int argc, char** argv){
      if(istep%iprint == 0) cout << "Number of time-steps: " << istep << " of " << nstep << endl;
      if(istep%10 == 0){
         Measure();     //Properties measurement
-        ConfXYZ(nconf);//Write actual configuration in XYZ format //Commented to avoid "filesystem full"!
+        //ConfXYZ(nconf);//Write actual configuration in XYZ format //Commented to avoid "filesystem full"!
         nconf += 1;
      }
   }
@@ -127,14 +127,14 @@ void Input(bool oldfconfig){
     }
     ReadConf.close();
     cout << "Prepare velocities using old and actual configuration " << endl << endl;
-    Move();
+    //Move();
     double sumv2 = 0.0, fs;
     for (int i=0; i<npart; ++i){
-      /* // Already done in Move()
+      // Already done in Move()
       vx[i] = Pbc(x[i] - xold[i])/(2.0 * delta);
       vy[i] = Pbc(y[i] - yold[i])/(2.0 * delta);
       vz[i] = Pbc(z[i] - zold[i])/(2.0 * delta);
-    */
+
       sumv2 += vx[i]*vx[i] + vy[i]*vy[i] + vz[i]*vz[i];
     }
     sumv2 /= (double)npart;
@@ -201,6 +201,7 @@ void Input(bool oldfconfig){
    out.open("output_etot.dat");
    out << nstep/10 << endl;
    out.close();
+   
   return;
 }
 
@@ -293,22 +294,22 @@ void Measure(){ //Properties measurement
 //Kinetic energy
   for (int i=0; i<npart; ++i) t += 0.5 * (vx[i]*vx[i] + vy[i]*vy[i] + vz[i]*vz[i]);
 
-    stima_pot = v/(double)npart; //Potential energy per particle
-    stima_kin = t/(double)npart; //Kinetic energy per particle
-    stima_temp = (2.0 / 3.0) * t/(double)npart; //Temperature
-    stima_etot = (t+v)/(double)npart; //Total energy per particle
+  stima_pot = v/(double)npart; //Potential energy per particle
+  stima_kin = t/(double)npart; //Kinetic energy per particle
+  stima_temp = (2.0 / 3.0) * t/(double)npart; //Temperature
+  stima_etot = (t+v)/(double)npart; //Total energy per particle
 
-    Epot << stima_pot  << endl;
-    Ekin << stima_kin  << endl;
-    Temp << stima_temp << endl;
-    Etot << stima_etot << endl;
+  Epot << stima_pot  << endl;
+  Ekin << stima_kin  << endl;
+  Temp << stima_temp << endl;
+  Etot << stima_etot << endl;
 
-    Epot.close();
-    Ekin.close();
-    Temp.close();
-    Etot.close();
+  Epot.close();
+  Ekin.close();
+  Temp.close();
+  Etot.close();
 
-    return;
+  return;
 }
 
 void ConfFinal(void){ //Write final configuration
